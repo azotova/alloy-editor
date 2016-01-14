@@ -15539,7 +15539,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       var pathLength = path.length;
       for (var i = 0; i < pathLength; i++) {
         var $pathSegm = $(path[i]);
-        if ($pathSegm.is('table,formula,chart,construct,question,choice')) {
+        if ($pathSegm.is('table,formula,chart,construct,question,choice,.chart-source')) {
           return 'object';
         } else if ($pathSegm.is('.am-section-condition')) {
           return 'condition';
