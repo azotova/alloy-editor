@@ -6185,7 +6185,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                         buttons: {
                           original: ['image', 'camera', 'hline', 'table'], // original Alloyeditor configuration
                           section: ['Chart', 'image', 'hline', 'table'],
-                          condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'hline', 'table'],
+                          condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'table'],
                           complexObject: ['Paragraph'], // for table, construct, chart, formula
                           defaultOption: ['image', 'camera', 'hline', 'table']
                         },
@@ -12328,7 +12328,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
       var pathLength = path.length;
       for (var i = 0; i < pathLength; i++) {
         var $pathSegm = $(path[i]);
-        if ($pathSegm.is('table,formula,chart,construct,question,choice')) {
+        if ($pathSegm.is('table,formula,chart,construct,question,choice,.chart-source')) {
           return 'object';
         } else if ($pathSegm.is('.am-section-condition')) {
           return 'condition';
