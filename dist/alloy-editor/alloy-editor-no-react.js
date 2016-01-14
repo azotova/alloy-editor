@@ -6182,7 +6182,13 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                 validator: '_validateToolbars',
                 value: {
                     add: {
-                        buttons: ['image', 'camera', 'hline', 'table'],
+                        buttons: {
+                          original: ['image', 'camera', 'hline', 'table'], // original Alloyeditor configuration
+                          section: ['Chart', 'image', 'hline', 'table'],
+                          condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'hline', 'table'],
+                          complexObject: ['Paragraph'], // for table, construct, chart, formula
+                          defaultOption: ['image', 'camera', 'hline', 'table']
+                        },
                         tabIndex: 2
                     },
                     styles: {
@@ -12317,6 +12323,20 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
      * @class ToolbarAdd
      */
 
+    var analyzePath = function(path) {
+      //path - это массив html элементов
+      var pathLength = path.length;
+      for (var i = 0; i < pathLength; i++) {
+        var $pathSegm = $(path[i]);
+        if ($pathSegm.is('table,formula,chart,construct,question,choice')) {
+          return 'object';
+        } else if ($pathSegm.is('.am-section-condition')) {
+          return 'condition';
+        }
+      }
+      return 'section';
+    }
+
     var ToolbarAdd = React.createClass({
         displayName: 'ToolbarAdd',
 
@@ -12473,7 +12493,20 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
             var buttons;
 
             if (this.props.renderExclusive) {
-                buttons = this.getToolbarButtons(this.props.config.buttons);
+              switch (analyzePath(this.props.editorEvent.data.nativeEvent.path)) {
+                case "section":
+                  var buttonsOption = this.props.config.buttons.section;
+                  break;
+                case "condition":
+                  var buttonsOption = this.props.config.buttons.condition;
+                  break;
+                case "object":
+                  var buttonsOption = this.props.config.buttons.complexObject;
+                  break;
+                default:
+                  var buttonsOption = this.props.config.buttons.defaultOption;
+              }
+              buttons = this.getToolbarButtons(buttonsOption);
             } else {
                 if (this.props.selectionData && this.props.selectionData.region) {
                     buttons = React.createElement(
