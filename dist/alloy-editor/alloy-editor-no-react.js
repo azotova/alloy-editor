@@ -8238,7 +8238,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                           condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'table', 'Ref'],
                           solution: ['Chart', 'image', 'table', 'Ref'],
                           complexObject: ['Paragraph'], // for table, construct, chart, formula
-                          defaultOption: ['image', 'camera', 'hline', 'table']
+                          defaultOption: ['image', 'embed', 'camera', 'hline', 'table']
                         },
                         tabIndex: 2
                     },
@@ -15484,6 +15484,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @class ToolbarAdd
      */
 
+<<<<<<< HEAD
     var analyzePath = function(target) {
       //target - это html элемент
       if (!target) {
@@ -15532,6 +15533,20 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       return 'section';
     }
 
+
+    var analyzePath = function(path) {
+      //path - это массив html элементов
+      var pathLength = path.length;
+      for (var i = 0; i < pathLength; i++) {
+        var $pathSegm = $(path[i]);
+        if ($pathSegm.is('table,formula,chart,construct,question,choice')) {
+          return 'object';
+        } else if ($pathSegm.is('.am-section-condition')) {
+          return 'condition';
+        }
+      }
+      return 'section';
+    }
 
     var ToolbarAdd = React.createClass({
         displayName: 'ToolbarAdd',
@@ -15724,7 +15739,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             var buttons;
 
             if (this.props.renderExclusive) {
+
               switch (analyzePath(this.props.editorEvent.data.nativeEvent.target)) {
+
                 case "section":
                   var buttonsOption = this.props.config.buttons.section;
                   break;
