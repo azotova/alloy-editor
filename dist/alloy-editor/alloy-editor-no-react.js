@@ -11406,7 +11406,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     { 'aria-label': AlloyEditor.Strings.image, className: 'ae-button', 'data-type': 'button-image', onClick: this.handleClick, tabIndex: this.props.tabIndex, title: AlloyEditor.Strings.image },
                     React.createElement('span', { className: 'ae-icon-image' })
                 ),
+
                 React.createElement('input', {ref: 'fileInput', style: inputSyle, type: 'file', name: 'file', className: 'cloudinary_fileupload' })
+
             );
         },
 
