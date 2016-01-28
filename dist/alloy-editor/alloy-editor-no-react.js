@@ -6184,7 +6184,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                     add: {
                         buttons: {
                           original: ['image', 'camera', 'hline', 'table'], // original Alloyeditor configuration
-                          section: ['Chart', 'Quiz', 'image', 'hline', 'table', 'Def'],
+                          section: ['Chart', 'Quiz', 'image', 'hline', 'table', 'Def', 'Example', 'Theorem', 'Nb'],
                           condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'table'],
                           complexObject: ['Paragraph'], // for table, construct, chart, formula
                           defaultOption: ['image', 'camera', 'hline', 'table']
