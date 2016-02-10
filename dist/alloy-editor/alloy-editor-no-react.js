@@ -11570,7 +11570,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                 React.createElement(
                     'label',
                     { htmlFor: rowsId },
-                    'Rows'
+                    'Строки'
                 ),
                 React.createElement(
                     'div',
@@ -11580,7 +11580,7 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
                 React.createElement(
                     'label',
                     { htmlFor: colsId },
-                    'Cols'
+                    'Столбцы'
                 ),
                 React.createElement(
                     'div',
