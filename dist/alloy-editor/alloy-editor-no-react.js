@@ -9285,16 +9285,18 @@ function _typeof(obj) { return obj && typeof Symbol !== "undefined" && obj.const
             return this.props.allowedLinkTargets || [{
                 label: AlloyEditor.Strings.linkTargetSelf,
                 value: '_self'
-            }, {
-                label: AlloyEditor.Strings.linkTargetBlank,
-                value: '_blank'
-            }, {
-                label: AlloyEditor.Strings.linkTargetParent,
-                value: '_parent'
-            }, {
-                label: AlloyEditor.Strings.linkTargetTop,
-                value: '_top'
-            }];
+            },
+            // {
+            //     label: AlloyEditor.Strings.linkTargetBlank,
+            //     value: '_blank'
+            // }, {
+            //     label: AlloyEditor.Strings.linkTargetParent,
+            //     value: '_parent'
+            // }, {
+            //     label: AlloyEditor.Strings.linkTargetTop,
+            //     value: '_top'
+            // }
+            ];
         },
 
         /**
