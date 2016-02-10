@@ -12205,6 +12205,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             } else {
                 setTimeout(focusLinkEl, 0);
             }
+
         },
 
         /**
