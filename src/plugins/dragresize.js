@@ -15,9 +15,17 @@
 
     var IMAGE_SNAP_TO_SIZE = 7;
 
-    var isWebkit = ('WebkitAppearance' in document.documentElement.style);
+    var isFirefox = ('MozAppearance' in document.documentElement.style);
+    var isWebKit = ('WebkitAppearance' in document.documentElement.style);
 
-    if (isWebkit) {
+    var enablePlugin = isWebKit || isFirefox;
+
+    if (isFirefox) {
+        // Disable the native image resizing
+        document.execCommand('enableObjectResizing', false, false);
+    }
+
+    if (enablePlugin) {
         // CSS is added in a compressed form
         CKEDITOR.addCss('img::selection{color:rgba(0,0,0,0)}img.ckimgrsz{outline:1px dashed #000}#ckimgrsz{position:absolute;width:0;height:0;cursor:default;z-index:10001}#ckimgrsz span{display:none;position:absolute;top:0;left:0;width:0;height:0;background-size:100% 100%;opacity:.65;outline:1px dashed #000}#ckimgrsz i{position:absolute;display:block;width:5px;height:5px;background:#fff;border:1px solid #000}#ckimgrsz i.active,#ckimgrsz i:hover{background:#000}#ckimgrsz i.br,#ckimgrsz i.tl{cursor:nwse-resize}#ckimgrsz i.bm,#ckimgrsz i.tm{cursor:ns-resize}#ckimgrsz i.bl,#ckimgrsz i.tr{cursor:nesw-resize}#ckimgrsz i.lm,#ckimgrsz i.rm{cursor:ew-resize}body.dragging-br,body.dragging-br *,body.dragging-tl,body.dragging-tl *{cursor:nwse-resize!important}body.dragging-bm,body.dragging-bm *,body.dragging-tm,body.dragging-tm *{cursor:ns-resize!important}body.dragging-bl,body.dragging-bl *,body.dragging-tr,body.dragging-tr *{cursor:nesw-resize!important}body.dragging-lm,body.dragging-lm *,body.dragging-rm,body.dragging-rm *{cursor:ew-resize!important}');
     }
@@ -27,12 +35,12 @@
      */
     CKEDITOR.plugins.add('ae_dragresize', {
         onLoad: function() {
-            if (!isWebkit) {
+            if (!enablePlugin) {
                 return;
             }
         },
         init: function(editor) {
-            if (!isWebkit) {
+            if (!enablePlugin) {
                 return;
             }
 
@@ -59,6 +67,7 @@
 
         function selectionChange() {
             var selection = editor.getSelection();
+
             if (!selection) return;
             // If an element is selected and that element is an IMG
             if (selection.getType() !== CKEDITOR.SELECTION_NONE && selection.getStartElement().is('img')) {
@@ -98,6 +107,18 @@
         editor.on('beforeModeUnload', function self() {
             editor.removeListener('beforeModeUnload', self);
             resizer.hide();
+        });
+
+        editor.on('destroy', function() {
+            var resizeElement = document.getElementById('ckimgrsz');
+
+            if (resizeElement) {
+                resizeElement.remove();
+            }
+
+            if (isFirefox) {
+                document.execCommand('enableObjectResizing', false, true);
+            }
         });
 
         // Update the selection when the browser window is resized
@@ -146,7 +167,9 @@
         isHandle: function(el) {
             var handles = this.handles;
             for (var n in handles) {
-                if (handles[n] === el) return true;
+                if (handles[n] === el) {
+                    return true;
+                }
             }
             return false;
         },

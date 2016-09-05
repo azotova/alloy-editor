@@ -93,24 +93,22 @@
             var removeStylesItem;
 
             if (this.props.showRemoveStylesItem) {
-                removeStylesItem = <AlloyEditor.ButtonStylesListItemRemove editor={this.props.editor} />;
+                removeStylesItem = <AlloyEditor.ButtonStylesListItemRemove editor={this.props.editor} onDismiss={this.props.toggleDropdown} />;
             }
 
             return (
-                <div className="ae-dropdown ae-arrow-box ae-arrow-box-top-left" onFocus={this.focus} onKeyDown={this.handleKey} tabIndex="0">
-                    <ul className="ae-listbox" role="listbox">
-                        {removeStylesItem}
+                <AlloyEditor.ButtonDropdown {...this.props}>
+                    {removeStylesItem}
 
-                        <AlloyEditor.ButtonsStylesListHeader name={AlloyEditor.Strings.blockStyles} styles={this._blockStyles} />
-                        {this._renderStylesItems(this._blockStyles)}
+                    <AlloyEditor.ButtonsStylesListHeader name={AlloyEditor.Strings.blockStyles} styles={this._blockStyles} />
+                    {this._renderStylesItems(this._blockStyles)}
 
-                        <AlloyEditor.ButtonsStylesListHeader name={AlloyEditor.Strings.inlineStyles} styles={this._inlineStyles} />
-                        {this._renderStylesItems(this._inlineStyles)}
+                    <AlloyEditor.ButtonsStylesListHeader name={AlloyEditor.Strings.inlineStyles} styles={this._inlineStyles} />
+                    {this._renderStylesItems(this._inlineStyles)}
 
-                        <AlloyEditor.ButtonsStylesListHeader name={AlloyEditor.Strings.objectStyles} styles={this._objectStyles} />
-                        {this._renderStylesItems(this._objectStyles)}
-                    </ul>
-                </div>
+                    <AlloyEditor.ButtonsStylesListHeader name={AlloyEditor.Strings.objectStyles} styles={this._objectStyles} />
+                    {this._renderStylesItems(this._objectStyles)}
+                </AlloyEditor.ButtonDropdown>
             );
         },
 

@@ -1,6 +1,7 @@
 (function() {
     'use strict';
 
+    var REGEX_EMAIL_SCHEME = /^[a-z0-9\u0430-\u044F\._-]+@/i;
     var REGEX_URI_SCHEME = /^(?:[a-z][a-z0-9+\-.]*)\:|^\//i;
 
     /**
@@ -11,8 +12,9 @@
      * @param {Object} editor The CKEditor instance.
      */
 
-    function Link(editor) {
+    function Link(editor, config) {
         this._editor = editor;
+        this.appendProtocol = config && config.appendProtocol === false ? false : true;
     }
 
     Link.prototype = {
@@ -195,8 +197,10 @@
         },
 
         /**
-         * Checks if the URI has a scheme. If not, the default 'http' scheme with
-         * hierarchical path '//' is added to it.
+         * Checks if the URI has an '@' symbol. If it does and the URI looks like an email
+         * and doesn't have 'mailto:', 'mailto:' is added to the URI.
+         * If it doesn't and the URI doesn't have a scheme, the default 'http' scheme with
+         * hierarchical path '//' is added to the URI.
          *
          * @protected
          * @method _getCompleteURI
@@ -204,8 +208,10 @@
          * @return {String} The URI updated with the protocol.
          */
         _getCompleteURI: function(URI) {
-            if (!REGEX_URI_SCHEME.test(URI)) {
-                URI = 'http://' + URI;
+            if (REGEX_EMAIL_SCHEME.test(URI)) {
+                URI = 'mailto:' + URI;
+            } else if (!REGEX_URI_SCHEME.test(URI)) {
+                URI = this.appendProtocol ? 'http://' + URI : URI;
             }
 
             return URI;

@@ -35,7 +35,7 @@
             /**
              * Indicates whether the remove styles item should appear in the styles list.
              *
-             * @property {Boolean} expanded
+             * @property {Boolean} showRemoveStylesItem
              */
             showRemoveStylesItem: React.PropTypes.bool,
 
@@ -94,7 +94,7 @@
             var buttonStylesList;
 
             if (this.props.expanded) {
-                buttonStylesList = <AlloyEditor.ButtonStylesList editor={this.props.editor} onDismiss={this.props.toggleDropdown} showRemoveStylesItem={this.props.showRemoveStylesItem} styles={styles} />
+                buttonStylesList = <AlloyEditor.ButtonStylesList editor={this.props.editor} onDismiss={this.props.toggleDropdown} showRemoveStylesItem={this.props.showRemoveStylesItem} styles={styles} />;
             }
 
             return (

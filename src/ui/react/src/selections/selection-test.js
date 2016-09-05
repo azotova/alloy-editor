@@ -18,6 +18,15 @@
             );
     };
 
+    var embedSelectionTest = function(payload) {
+        var selectionData = payload.data.selectionData;
+
+        return !!(
+            selectionData.element &&
+            selectionData.element.getAttribute('data-widget') === 'ae_embed'
+        );
+    };
+
     var linkSelectionTest = function(payload) {
         var nativeEditor = payload.editor.get('nativeEditor');
         var range = nativeEditor.getSelection().getRanges()[0];
@@ -68,6 +77,7 @@
     };
 
     AlloyEditor.SelectionTest = {
+        embed: embedSelectionTest,
         image: imageSelectionTest,
         link: linkSelectionTest,
         table: tableSelectionTest,
