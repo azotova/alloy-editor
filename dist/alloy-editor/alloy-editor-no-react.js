@@ -15544,8 +15544,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         var $pathSegm = $(path[i]);
         if ($pathSegm.is('table,formula,chart,construct,question,choice,.chart-source')) {
           return 'object';
-        } else if ($pathSegm.is('.am-section-condition')) {
+        } else if ($pathSegm.is('.am-section_condition')) {
           return 'condition';
+        } else if ($pathSegm.is('.am-section_solution')) {
+          return 'solution';
         }
       }
       return 'section';
