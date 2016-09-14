@@ -6901,6 +6901,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                           original: ['image', 'camera', 'hline', 'table'], // original Alloyeditor configuration
                           section: ['Chart', 'Quiz', 'image', 'hline', 'table', 'Ref', 'Def', 'Example', 'Theorem', 'Nb'],
                           condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'table', 'Ref'],
+                          solution: ['Chart', 'image', 'table', 'Ref'],
                           complexObject: ['Paragraph'], // for table, construct, chart, formula
                           defaultOption: ['image', 'camera', 'hline', 'table']
                         },
@@ -14112,8 +14113,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         var $pathSegm = $(path[i]);
         if ($pathSegm.is('table,formula,chart,construct,question,choice,.chart-source')) {
           return 'object';
-        } else if ($pathSegm.is('.am-section-condition')) {
+        } else if ($pathSegm.is('.am-section_condition')) {
           return 'condition';
+        } else if ($pathSegm.is('.am-section_solution')) {
+          return 'solution';
         }
       }
       return 'section';
@@ -14317,6 +14320,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                   break;
                 case "condition":
                   var buttonsOption = this.props.config.buttons.condition;
+                  break;
+                case "solution":
+                  var buttonsOption = this.props.config.buttons.solution;
                   break;
                 case "object":
                   var buttonsOption = this.props.config.buttons.complexObject;
