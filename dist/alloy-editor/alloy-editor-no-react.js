@@ -1804,6 +1804,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
             // Insert the table element if we're creating one.
             editor.insertElement(table);
+            // Для вставки пустового параграфа в случаях, когда за таблицей идет widget или question
+            var p = this._createElement('p');
+            p.append(this._createElement('br'));
+            editor.insertElement(p);
 
             var firstCell = new CKEDITOR.dom.element(table.$.rows[0].cells[0]);
             var range = editor.createRange();
