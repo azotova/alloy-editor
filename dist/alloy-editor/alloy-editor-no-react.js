@@ -15487,7 +15487,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
      * @class ToolbarAdd
      */
 
-<<<<<<< HEAD
     var analyzePath = function(target) {
       //target - это html элемент
       if (!target) {
@@ -15533,23 +15532,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       //     return 'solution';
       //   }
       // }
-      return 'section';
-    }
-
-
-    var analyzePath = function(path) {
-      //path - это массив html элементов
-      var pathLength = path.length;
-      for (var i = 0; i < pathLength; i++) {
-        var $pathSegm = $(path[i]);
-        if ($pathSegm.is('table,formula,chart,construct,question,choice,.chart-source')) {
-          return 'object';
-        } else if ($pathSegm.is('.am-section_condition')) {
-          return 'condition';
-        } else if ($pathSegm.is('.am-section_solution')) {
-          return 'solution';
-        }
-      }
       return 'section';
     }
 
