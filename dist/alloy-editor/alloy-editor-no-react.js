@@ -8234,11 +8234,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     add: {
                         buttons: {
                           original: ['image', 'camera', 'hline', 'table'], // original Alloyeditor configuration
-                          section: ['Chart', 'Quiz', 'image', 'hline', 'table', 'Def', 'Example', 'Theorem', 'Nb'], // 'Ref' для русского - скрепка
-                          condition: ['Question', 'Choice', 'Construct', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
-                          solution: ['Chart', 'image', 'table'], // 'Ref' для русского - скрепка
-                          complexObject: ['Paragraph'], // for table, construct, chart, formula
-                          defaultOption: ['image', 'embed', 'camera', 'hline', 'table']
+                          section: ['Math', 'Chart', 'Quiz', 'image', 'hline', 'table', 'Def', 'Example', 'Theorem', 'Nb'], // 'Ref' для русского - скрепка
+                          condition: ['Math', 'Question', 'Choice', 'Construct', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
+                          solution: ['Math', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
+                          complexObject: ['Math', 'Paragraph'], // for table, construct, chart, formula
+                          defaultOption: ['Math', 'image', 'embed', 'camera', 'hline', 'table']
                         },
                         tabIndex: 2
                     },
