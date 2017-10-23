@@ -8234,11 +8234,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                     add: {
                         buttons: {
                           original: ['image', 'camera', 'hline', 'table'], // original Alloyeditor configuration
-                          section: ['wiris', 'Chart', 'Quiz', 'image', 'hline', 'table', 'Def', 'Example', 'Theorem', 'Nb'], // 'Ref' для русского - скрепка
-                          condition: ['wiris', 'Question', 'Choice', 'Construct', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
-                          solution: ['wiris', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
-                          complexObject: ['wiris', 'Paragraph'], // for table, construct, chart, formula
-                          defaultOption: ['wiris', 'image', 'embed', 'camera', 'hline', 'table']
+                          section: ['ckeditor_wiris_formulaEditor', 'Chart', 'Quiz', 'image', 'hline', 'table', 'Def', 'Example', 'Theorem', 'Nb'], // 'Ref' для русского - скрепка
+                          condition: ['ckeditor_wiris_formulaEditor', 'Question', 'Choice', 'Construct', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
+                          solution: ['ckeditor_wiris_formulaEditor', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
+                          complexObject: ['ckeditor_wiris_formulaEditor', 'Paragraph'], // for table, construct, chart, formula
+                          defaultOption: ['ckeditor_wiris_formulaEditor', 'image', 'embed', 'camera', 'hline', 'table']
                         },
                         tabIndex: 2
                     },
