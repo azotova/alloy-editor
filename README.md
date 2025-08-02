@@ -7,13 +7,13 @@ Works on IE9+, Chrome, Firefox and Safari.
 
 ## Demo
 
-* [All-in-one self-guided demo](http://alloyeditor.com/demo/)
-* [Screencasts and code samples for specific features](http://alloyeditor.com/features/)
+* [Embedded self-guided demo](http://alloyeditor.com)
+* [Screencasts and code samples for specific features](https://alloyeditor.com/docs/features/)
 
 ## Features
 
 * Smart toolbars appear right near the selected text and offer different functionality based on context
-* Easily add your own buttons (see the "marquee" example in [the demo](http://alloyeditor.com/demo/))
+* Easily add your own buttons (see the "marquee" example in [the docs](https://alloyeditor.com/docs/develop/create/create_buttons.html))
 * Paste images from clipboard, or Drag&Drop them from another application
 * Insert images from the device's camera!
 * Paste rich text from any web page and preserve its formatting
@@ -32,4 +32,4 @@ Look for documentation and examples on [http://alloyeditor.com/](http://alloyedi
 
 [![Build Status](https://travis-ci.org/liferay/alloy-editor.svg)](https://travis-ci.org/liferay/alloy-editor)
 
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/alloyui.svg)](https://saucelabs.com/u/alloyui)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/alloy-editor.svg)](https://saucelabs.com/u/alloy-editor)

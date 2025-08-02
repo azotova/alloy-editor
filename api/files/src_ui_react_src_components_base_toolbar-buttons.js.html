@@ -31,7 +31,7 @@
                 <li class="divider-vertical"></li>
                 <li>
                     <p class="navbar-text">
-                        API Docs for Version: <b>1.3.0</b>
+                        API Docs for Version: <b>1.5.19</b>
                     </p>
                 </li>
             </div>
@@ -56,6 +56,7 @@
                     
                             <div id="api-tabview-panel">
                                 <ul id="api-classes" class="apis classes tab-pane">
+                                    <li><a href="../classes/ae_uicore.html">ae_uicore</a></li>
                                     <li><a href="../classes/AlloyEditor.html">AlloyEditor</a></li>
                                     <li><a href="../classes/Attribute.html">Attribute</a></li>
                                     <li><a href="../classes/Base.html">Base</a></li>
@@ -88,6 +89,7 @@
                                     <li><a href="../classes/ButtonLinkTargetEdit.html">ButtonLinkTargetEdit</a></li>
                                     <li><a href="../classes/ButtonOrderedList.html">ButtonOrderedList</a></li>
                                     <li><a href="../classes/ButtonOutdentBlock.html">ButtonOutdentBlock</a></li>
+                                    <li><a href="../classes/ButtonParagraphAlign.html">ButtonParagraphAlign</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignLeft.html">ButtonParagraphAlignLeft</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignRight.html">ButtonParagraphAlignRight</a></li>
                                     <li><a href="../classes/ButtonParagraphCenter.html">ButtonParagraphCenter</a></li>
@@ -116,6 +118,7 @@
                                     <li><a href="../classes/ButtonUnderline.html">ButtonUnderline</a></li>
                                     <li><a href="../classes/ButtonUnorderedlist.html">ButtonUnorderedlist</a></li>
                                     <li><a href="../classes/CKEDITOR.Link.html">CKEDITOR.Link</a></li>
+                                    <li><a href="../classes/CKEDITOR.plugins.html">CKEDITOR.plugins</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_autolink.html">CKEDITOR.plugins.ae_autolink</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_buttonbridge.html">CKEDITOR.plugins.ae_buttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_menubridge.html">CKEDITOR.plugins.ae_menubridge</a></li>
@@ -123,13 +126,13 @@
                                     <li><a href="../classes/CKEDITOR.plugins.ae_panelmenubuttonbridge.html">CKEDITOR.plugins.ae_panelmenubuttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_placeholder.html">CKEDITOR.plugins.ae_placeholder</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_richcombobridge.html">CKEDITOR.plugins.ae_richcombobridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_selectionregion.html">CKEDITOR.plugins.ae_selectionregion</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_uibridge.html">CKEDITOR.plugins.ae_uibridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_uicore.html">CKEDITOR.plugins.ae_uicore</a></li>
                                     <li><a href="../classes/CKEDITOR.Table.html">CKEDITOR.Table</a></li>
                                     <li><a href="../classes/CKEDITOR.tools.html">CKEDITOR.tools</a></li>
                                     <li><a href="../classes/Core.html">Core</a></li>
                                     <li><a href="../classes/Lang.html">Lang</a></li>
+                                    <li><a href="../classes/OOP.html">OOP</a></li>
+                                    <li><a href="../classes/SelectionRegion.html">SelectionRegion</a></li>
                                     <li><a href="../classes/ToolbarAdd.html">ToolbarAdd</a></li>
                                     <li><a href="../classes/ToolbarButtons.html">ToolbarButtons</a></li>
                                     <li><a href="../classes/ToolbarStyles.html">ToolbarStyles</a></li>
@@ -193,9 +196,38 @@
                                  */
                                 var ToolbarButtons = {
                                     /**
+                                     * Analayses the current selection and returns the buttons or button groups to be rendered.
+                                     *
+                                     * @instance
+                                     * @method getToolbarButtonGroups
+                                     * @param {Array} buttons The buttons could be shown, prior to the state filtering.
+                                     * @param {Object} additionalProps Additional props that should be passed down to the buttons.
+                                     * @return {Array} An Array which contains the buttons or button groups that should be rendered.
+                                     */
+                                    getToolbarButtonGroups: function(buttons, additionalProps) {
+                                        var instance = this;
+                            
+                                        if (AlloyEditor.Lang.isFunction(buttons)) {
+                                            buttons = buttons.call(this) || [];
+                                        }
+                            
+                            
+                                        return buttons.reduce(function(list, button) {
+                                            if (Array.isArray(button)) {
+                                                list.push(instance.getToolbarButtons(button, additionalProps));
+                                                return list;
+                                            } else {
+                                                return instance.getToolbarButtons(buttons, additionalProps);
+                                            }
+                                        }, []);
+                                    },
+                            
+                                    /**
                                      * Analyzes the current selection and the buttons exclusive mode value to figure out which
                                      * buttons should be present in a given state.
                                      *
+                                     * @instance
+                                     * @memberof ToolbarButtons
                                      * @method getToolbarButtons
                                      * @param {Array} buttons The buttons could be shown, prior to the state filtering.
                                      * @param {Object} additionalProps Additional props that should be passed down to the buttons.
@@ -206,6 +238,10 @@
                             
                                         var nativeEditor = this.props.editor.get(&#x27;nativeEditor&#x27;);
                                         var buttonCfg = nativeEditor.config.buttonCfg || {};
+                            
+                                        if (AlloyEditor.Lang.isFunction(buttons)) {
+                                            buttons = buttons.call(this) || [];
+                                        }
                             
                                         var toolbarButtons = this.filterExclusive(
                                                 buttons.filter(function(button) {
@@ -223,10 +259,10 @@
                                                     return button;
                                                 })
                                             )
-                                            .map(function(button) {
+                                            .map(function(button, index) {
                                                 var props = this.mergeExclusiveProps({
                                                     editor: this.props.editor,
-                                                    key: button.key,
+                                                    key: button.key !== &#x27;separator&#x27; ? button.key : &#x60;${button.key}-${index}&#x60;,
                                                     tabKey: button.key,
                                                     tabIndex: (this.props.trigger &amp;&amp; this.props.trigger.props.tabKey === button.key) ? 0 : -1,
                                                     trigger: this.props.trigger

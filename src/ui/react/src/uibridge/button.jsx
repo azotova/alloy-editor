@@ -41,13 +41,13 @@
         BUTTON_DEFS[editor.name][buttonName] = BUTTON_DEFS[editor.name][buttonName] || buttonDefinition;
 
         if (!ButtonBridge) {
-            ButtonBridge = React.createClass(
+            ButtonBridge = createReactClass(
                 CKEDITOR.tools.merge(UNSUPPORTED_BUTTON_API, {
                     displayName: buttonName,
 
                     propTypes: {
-                        editor: React.PropTypes.object.isRequired,
-                        tabIndex: React.PropTypes.number
+                        editor: PropTypes.object.isRequired,
+                        tabIndex: PropTypes.number
                     },
 
                     statics: {
@@ -137,7 +137,7 @@
          * @method init
          * @param {Object} editor The CKEditor instance being initialized
          */
-        init: function(editor) {
+        beforeInit: function(editor) {
             editor.ui.addButton = function(buttonName, buttonDefinition) {
                 this.add(buttonName, CKEDITOR.UI_BUTTON, buttonDefinition);
             };

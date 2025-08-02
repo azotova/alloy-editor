@@ -1,16 +1,19 @@
 (function() {
     'use strict';
 
+    // An object containing all currently registered plugins in AlloyEditor.
+    var BRIDGE_BUTTONS = {};
+
     /**
      * AlloyEditor static object.
      *
      * @class AlloyEditor
-     * @type {Object}
      */
     var AlloyEditor = {
         /**
          * Creates an instance of AlloyEditor.
          *
+         * @memberof AlloyEditor
          * @method editable
          * @static
          * @param {String|Node} node The Node ID or HTMl node, which AlloyEditor should use as an editable area.
@@ -32,6 +35,7 @@
          * global variable named `ALLOYEDITOR_BASEPATH`. This global variable
          * must be set **before** the editor script loading.
          *
+         * @memberof AlloyEditor
          * @method getBasePath
          * @static
          * @return {String} The found base path
@@ -78,6 +82,7 @@
          * Detects and load the corresponding language file if AlloyEditor language strings are not already present.
          * The function fires a {{#crossLink "AlloyEditor/languageResourcesLoaded:event"}}{{/crossLink}} event
          *
+         * @memberof AlloyEditor
          * @method loadLanguageResources
          * @static
          * @param {Function} callback Optional callback to be called when AlloyEditor loads the language resource.
@@ -89,7 +94,9 @@
                 if (AlloyEditor.Strings) {
                     setTimeout(callback, 0);
                 } else {
-                    AlloyEditor.once('languageResourcesLoaded', callback);
+                    AlloyEditor.once('languageResourcesLoaded', function() {
+                        setTimeout(callback, 0);
+                    });
                 }
             }
 
@@ -123,6 +130,7 @@
          * returned by this function contain a querystring parameter ("t")
          * set to the {@link CKEDITOR#timestamp} value.
          *
+         * @memberof AlloyEditor
          * @method getUrl
          * @static
          * @param {String} resource The resource whose full URL we want to get.
@@ -148,6 +156,7 @@
         /**
          * Implements event firing and subscribing via CKEDITOR.event.
          *
+         * @memberof AlloyEditor
          * @method implementEventTarget
          * @static
          */
@@ -160,6 +169,7 @@
         /**
          * Regular expression which should match the script which have been used to load AlloyEditor.
          *
+         * @memberof AlloyEditor
          * @property regexBasePath
          * @type {RegExp}
          * @static
@@ -169,6 +179,7 @@
         /**
          * And object, containing all currently registered buttons in AlloyEditor.
          *
+         * @memberof AlloyEditor
          * @property Buttons
          * @type {Object}
          * @static
@@ -178,11 +189,12 @@
         /**
          * And object, containing all currently registered toolbars in AlloyEditor.
          *
+         * @memberof AlloyEditor
          * @property Toolbars
          * @type {Object}
          * @static
          */
-        Toolbars: {}
+        Toolbars: {},
 
         /**
          * Fired when AlloyEditor detects the browser language and loads the corresponding language file. Once this event
@@ -190,6 +202,42 @@
          *
          * @event languageResourcesLoaded
          */
+
+        /**
+         * Returns the required plugin names needed for a given plugin
+         * if it is already registered or an empty array.
+         *
+         * @memberof AlloyEditor
+         * @method getButtons
+         * @param {Array} buttons An array of buttons or plugin names.
+         * @return {Function} A function that can be invoked to resolve the requested button names.
+         * @static
+         */
+        getButtons: function(buttons) {
+            return function() {
+                return buttons.reduce(function(acc, val) {
+                    val = BRIDGE_BUTTONS[val] || [val];
+                    return acc.concat(val);
+                }, []);
+            };
+        },
+
+        /**
+         * Register a button and try to get its required plugins.
+         *
+         * @memberof AlloyEditor
+         * @method registerBridgeButton
+         * @param {String} buttonName The name of the button.
+         * @param {String} pluginName The name of the plugin that registers the button.
+         * @static
+         */
+        registerBridgeButton: function(buttonName, pluginName) {
+            if (!BRIDGE_BUTTONS[pluginName]) {
+                BRIDGE_BUTTONS[pluginName] = [];
+            }
+
+            BRIDGE_BUTTONS[pluginName].push(buttonName);
+        }
     };
 
     if (typeof module !== 'undefined' && typeof module.exports === 'object') {
@@ -198,7 +246,7 @@
 
     if (typeof window !== 'undefined') {
         window.AlloyEditor = AlloyEditor;
-    } else if(typeof global !== 'undefined') {
+    } else if (typeof global !== 'undefined') {
         global.AlloyEditor = AlloyEditor;
     } else if (typeof self !== 'undefined') {
         self.AlloyEditor = AlloyEditor;

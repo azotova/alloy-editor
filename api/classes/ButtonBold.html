@@ -31,7 +31,7 @@
                 <li class="divider-vertical"></li>
                 <li>
                     <p class="navbar-text">
-                        API Docs for Version: <b>1.3.0</b>
+                        API Docs for Version: <b>1.5.19</b>
                     </p>
                 </li>
             </div>
@@ -56,6 +56,7 @@
                     
                             <div id="api-tabview-panel">
                                 <ul id="api-classes" class="apis classes tab-pane">
+                                    <li><a href="../classes/ae_uicore.html">ae_uicore</a></li>
                                     <li><a href="../classes/AlloyEditor.html">AlloyEditor</a></li>
                                     <li><a href="../classes/Attribute.html">Attribute</a></li>
                                     <li><a href="../classes/Base.html">Base</a></li>
@@ -88,6 +89,7 @@
                                     <li><a href="../classes/ButtonLinkTargetEdit.html">ButtonLinkTargetEdit</a></li>
                                     <li><a href="../classes/ButtonOrderedList.html">ButtonOrderedList</a></li>
                                     <li><a href="../classes/ButtonOutdentBlock.html">ButtonOutdentBlock</a></li>
+                                    <li><a href="../classes/ButtonParagraphAlign.html">ButtonParagraphAlign</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignLeft.html">ButtonParagraphAlignLeft</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignRight.html">ButtonParagraphAlignRight</a></li>
                                     <li><a href="../classes/ButtonParagraphCenter.html">ButtonParagraphCenter</a></li>
@@ -116,6 +118,7 @@
                                     <li><a href="../classes/ButtonUnderline.html">ButtonUnderline</a></li>
                                     <li><a href="../classes/ButtonUnorderedlist.html">ButtonUnorderedlist</a></li>
                                     <li><a href="../classes/CKEDITOR.Link.html">CKEDITOR.Link</a></li>
+                                    <li><a href="../classes/CKEDITOR.plugins.html">CKEDITOR.plugins</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_autolink.html">CKEDITOR.plugins.ae_autolink</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_buttonbridge.html">CKEDITOR.plugins.ae_buttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_menubridge.html">CKEDITOR.plugins.ae_menubridge</a></li>
@@ -123,13 +126,13 @@
                                     <li><a href="../classes/CKEDITOR.plugins.ae_panelmenubuttonbridge.html">CKEDITOR.plugins.ae_panelmenubuttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_placeholder.html">CKEDITOR.plugins.ae_placeholder</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_richcombobridge.html">CKEDITOR.plugins.ae_richcombobridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_selectionregion.html">CKEDITOR.plugins.ae_selectionregion</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_uibridge.html">CKEDITOR.plugins.ae_uibridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_uicore.html">CKEDITOR.plugins.ae_uicore</a></li>
                                     <li><a href="../classes/CKEDITOR.Table.html">CKEDITOR.Table</a></li>
                                     <li><a href="../classes/CKEDITOR.tools.html">CKEDITOR.tools</a></li>
                                     <li><a href="../classes/Core.html">Core</a></li>
                                     <li><a href="../classes/Lang.html">Lang</a></li>
+                                    <li><a href="../classes/OOP.html">OOP</a></li>
+                                    <li><a href="../classes/SelectionRegion.html">SelectionRegion</a></li>
                                     <li><a href="../classes/ToolbarAdd.html">ToolbarAdd</a></li>
                                     <li><a href="../classes/ToolbarButtons.html">ToolbarButtons</a></li>
                                     <li><a href="../classes/ToolbarStyles.html">ToolbarStyles</a></li>
@@ -193,7 +196,7 @@
                             
                             
                                     <div class="foundat">
-                                        Defined in: <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l4"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:4</code></a>
+                                        Defined in: <a href="../files/src_ui_react_src_components_buttons_button-separator.jsx.html#l4"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-separator.jsx:4</code></a>
                                     </div>
                             
                             
@@ -201,7 +204,7 @@
                             
                             
                             <div class="well well-small intro">
-                                <p>The ButtonBold class provides functionality for styling an selection with strong (bold) style.</p>
+                                <p>The Separator class renders a simple separator.</p>
                             
                             </div>
                             
@@ -254,6 +257,10 @@
                                                             <a href="#method_render">render</a>
                             
                                                         </li>
+                                                        <li class="index-item method">
+                                                            <a href="#method_render">render</a>
+                            
+                                                        </li>
                                                 </ul>
                                             </div>
                             
@@ -274,6 +281,11 @@
                             
                                                                 <span class="flag static">static</span>
                                                         </li>
+                                                        <li class="index-item property">
+                                                            <a href="#property_key">key</a>
+                            
+                                                                <span class="flag static">static</span>
+                                                        </li>
                                                         <li class="index-item property inherited">
                                                             <a href="#property_keystroke">keystroke</a>
                             
@@ -288,6 +300,10 @@
                                                         </li>
                                                         <li class="index-item property inherited">
                                                             <a href="#property_style">style</a>
+                            
+                                                        </li>
+                                                        <li class="index-item property inherited">
+                                                            <a href="#property_styleFn">styleFn</a>
                             
                                                         </li>
                                                         <li class="index-item property">
@@ -321,7 +337,7 @@
                                                                 ButtonStyle
                                                             </a>
                                                             but overwritten in
-                                                        <a href="../files/src_ui_react_src_components_base_button-keystroke.js.html#l24"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-keystroke.js:24</code></a>
+                                                        <a href="../files/src_ui_react_src_components_base_button-keystroke.js.html#l27"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-keystroke.js:27</code></a>
                                                         </p>
                                                 
                                                 
@@ -354,7 +370,7 @@
                                                                 ButtonStyle
                                                             </a>
                                                             but overwritten in
-                                                        <a href="../files/src_ui_react_src_components_base_button-keystroke.js.html#l59"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-keystroke.js:59</code></a>
+                                                        <a href="../files/src_ui_react_src_components_base_button-keystroke.js.html#l64"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-keystroke.js:64</code></a>
                                                         </p>
                                                 
                                                 
@@ -390,7 +406,7 @@
                                                     <div class="meta">
                                                                 <p>Inherited from
                                                                 <a href="../classes/ButtonCommand.html#method_execCommand">ButtonCommand</a>:
-                                                        <a href="../files/src_ui_react_src_components_base_button-command.js.html#l27"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-command.js:27</code></a>
+                                                        <a href="../files/src_ui_react_src_components_base_button-command.js.html#l31"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-command.js:31</code></a>
                                                         </p>
                                                 
                                                 
@@ -440,7 +456,7 @@
                                                     <div class="meta">
                                                                 <p>
                                                                 Defined in
-                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l54"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:54</code></a>
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l60"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:60</code></a>
                                                         </p>
                                                 
                                                 
@@ -525,7 +541,7 @@
                                                     <div class="meta">
                                                                 <p>Inherited from
                                                                 <a href="../classes/ButtonStyle.html#method_getStyle">ButtonStyle</a>:
-                                                        <a href="../files/src_ui_react_src_components_base_button-style.js.html#l64"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-style.js:64</code></a>
+                                                        <a href="../files/src_ui_react_src_components_base_button-style.js.html#l80"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-style.js:80</code></a>
                                                         </p>
                                                 
                                                 
@@ -567,7 +583,7 @@
                                                     <div class="meta">
                                                                 <p>Inherited from
                                                                 <a href="../classes/ButtonStyle.html#method_isActive">ButtonStyle</a>:
-                                                        <a href="../files/src_ui_react_src_components_base_button-style.js.html#l74"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-style.js:74</code></a>
+                                                        <a href="../files/src_ui_react_src_components_base_button-style.js.html#l92"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-style.js:92</code></a>
                                                         </p>
                                                 
                                                 
@@ -609,7 +625,7 @@
                                                     <div class="meta">
                                                                 <p>
                                                                 Defined in
-                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l71"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:71</code></a>
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l79"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:79</code></a>
                                                         </p>
                                                 
                                                 
@@ -618,6 +634,48 @@
                                                 
                                                     <div class="description">
                                                         <p>Lifecycle. Renders the UI of the button.</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                        <div class="returns">
+                                                            <h4>Returns:</h4>
+                                                
+                                                            <div class="returns-description">
+                                                                        <span class="type">Object</span>:
+                                                                    <p>The content which should be rendered.</p>
+                                                
+                                                            </div>
+                                                        </div>
+                                                
+                                                </div>
+                                                <div id="method_render" class="method item">
+                                                    <h3 class="name"><code>render</code></h3>
+                                                
+                                                        <span class="paren">()</span>
+                                                
+                                                        <span class="returns-inline">
+                                                            <span class="type">Object</span>
+                                                        </span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-separator.jsx.html#l27"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-separator.jsx:27</code></a>
+                                                        </p>
+                                                
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>Lifecycle. Renders the UI of the separator.</p>
                                                 
                                                     </div>
                                                 
@@ -674,7 +732,7 @@
                                                     <div class="meta">
                                                                 <p>
                                                                 Defined in
-                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l19"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:19</code></a>
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l18"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:18</code></a>
                                                         </p>
                                                 
                                                 
@@ -700,7 +758,7 @@
                                                     <div class="meta">
                                                                 <p>
                                                                 Defined in
-                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l44"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:44</code></a>
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l49"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:49</code></a>
                                                         </p>
                                                 
                                                 
@@ -712,6 +770,33 @@
                                                     </div>
                                                 
                                                         <p><strong>Default:</strong> bold</p>
+                                                
+                                                
+                                                </div>
+                                                <div id="property_key" class="property item">
+                                                    <h3 class="name"><code>key</code></h3>
+                                                    <span class="type">String</span>
+                                                
+                                                
+                                                
+                                                
+                                                        <span class="flag static">static</span>
+                                                
+                                                    <div class="meta">
+                                                                <p>
+                                                                Defined in
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-separator.jsx.html#l16"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-separator.jsx:16</code></a>
+                                                        </p>
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>The name which will be used as an alias of the separator in the configuration.</p>
+                                                
+                                                    </div>
+                                                
+                                                        <p><strong>Default:</strong> |</p>
                                                 
                                                 
                                                 </div>
@@ -757,7 +842,7 @@
                                                     <div class="meta">
                                                                 <p>
                                                                 Defined in
-                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l26"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:26</code></a>
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l27"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:27</code></a>
                                                         </p>
                                                 
                                                 
@@ -782,7 +867,7 @@
                                                     <div class="meta">
                                                                 <p>Inherited from
                                                                 <a href="../classes/ButtonCommand.html#property_modifiesSelection">ButtonCommand</a>:
-                                                        <a href="../files/src_ui_react_src_components_base_button-command.js.html#l19"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-command.js:19</code></a>
+                                                        <a href="../files/src_ui_react_src_components_base_button-command.js.html#l21"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-command.js:21</code></a>
                                                         </p>
                                                 
                                                 
@@ -827,6 +912,32 @@
                                                 
                                                 
                                                 </div>
+                                                <div id="property_styleFn" class="property item inherited">
+                                                    <h3 class="name"><code>styleFn</code></h3>
+                                                    <span class="type">Function</span>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                    <div class="meta">
+                                                                <p>Inherited from
+                                                                <a href="../classes/ButtonStyle.html#property_styleFn">ButtonStyle</a>:
+                                                        <a href="../files/src_ui_react_src_components_base_button-style.js.html#l29"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;base&#x2F;button-style.js:29</code></a>
+                                                        </p>
+                                                
+                                                
+                                                    </div>
+                                                
+                                                    <div class="description">
+                                                        <p>The style function the button should handle.
+                                                If specified, style function has higher priority than style property.</p>
+                                                
+                                                    </div>
+                                                
+                                                
+                                                
+                                                </div>
                                                 <div id="property_tabIndex" class="property item">
                                                     <h3 class="name"><code>tabIndex</code></h3>
                                                     <span class="type">Number</span>
@@ -838,7 +949,7 @@
                                                     <div class="meta">
                                                                 <p>
                                                                 Defined in
-                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l33"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:33</code></a>
+                                                        <a href="../files/src_ui_react_src_components_buttons_button-bold.jsx.html#l36"><code>src&#x2F;ui&#x2F;react&#x2F;src&#x2F;components&#x2F;buttons&#x2F;button-bold.jsx:36</code></a>
                                                         </p>
                                                 
                                                 

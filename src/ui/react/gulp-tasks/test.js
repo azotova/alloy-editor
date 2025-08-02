@@ -20,7 +20,13 @@ var languageFiles = require('../_languages.js');
 gulp.task('prepare-files', function(done) {
     runSequence(
         'clean-dist', 'create-output-dir', [
-            'build-css', 'copy-ckeditor', 'copy-core-files', 'copy-language-files', 'copy-react', 'copy-test-plugins'
+            'build-css',
+            'copy-ckeditor',
+            'copy-core-files',
+            'copy-language-files',
+            'copy-react',
+            'copy-react-bridge',
+            'copy-test-plugins'
         ], done);
 });
 
@@ -46,6 +52,11 @@ gulp.task('copy-react', function() {
         .pipe(gulp.dest(editorDistFolder));
 });
 
+gulp.task('copy-react-bridge', function() {
+    return gulp.src(path.join(reactDir, 'vendor', 'react-bridge.js'))
+        .pipe(gulp.dest(editorDistFolder));
+});
+
 gulp.task('copy-test-plugins', function() {
     return gulp.src(path.join(reactDir, 'test', 'plugins', '/**'))
         .pipe(gulp.dest(path.join(editorDistFolder, 'plugins')));
@@ -54,6 +65,13 @@ gulp.task('copy-test-plugins', function() {
 gulp.task('test', ['prepare-files'], function (done) {
     new KarmaServer({
         configFile: path.join(__dirname, '../karma.js'),
+        singleRun: (argv.debug || argv.d) ? false : true
+    }, done).start();
+});
+
+gulp.task('test:saucelabs', ['prepare-files'], function (done) {
+    new KarmaServer({
+        configFile: path.join(__dirname, '../karma-saucelabs.js'),
         singleRun: (argv.debug || argv.d) ? false : true
     }, done).start();
 });

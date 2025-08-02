@@ -31,7 +31,7 @@
                 <li class="divider-vertical"></li>
                 <li>
                     <p class="navbar-text">
-                        API Docs for Version: <b>1.3.0</b>
+                        API Docs for Version: <b>1.5.19</b>
                     </p>
                 </li>
             </div>
@@ -56,6 +56,7 @@
                     
                             <div id="api-tabview-panel">
                                 <ul id="api-classes" class="apis classes tab-pane">
+                                    <li><a href="../classes/ae_uicore.html">ae_uicore</a></li>
                                     <li><a href="../classes/AlloyEditor.html">AlloyEditor</a></li>
                                     <li><a href="../classes/Attribute.html">Attribute</a></li>
                                     <li><a href="../classes/Base.html">Base</a></li>
@@ -88,6 +89,7 @@
                                     <li><a href="../classes/ButtonLinkTargetEdit.html">ButtonLinkTargetEdit</a></li>
                                     <li><a href="../classes/ButtonOrderedList.html">ButtonOrderedList</a></li>
                                     <li><a href="../classes/ButtonOutdentBlock.html">ButtonOutdentBlock</a></li>
+                                    <li><a href="../classes/ButtonParagraphAlign.html">ButtonParagraphAlign</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignLeft.html">ButtonParagraphAlignLeft</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignRight.html">ButtonParagraphAlignRight</a></li>
                                     <li><a href="../classes/ButtonParagraphCenter.html">ButtonParagraphCenter</a></li>
@@ -116,6 +118,7 @@
                                     <li><a href="../classes/ButtonUnderline.html">ButtonUnderline</a></li>
                                     <li><a href="../classes/ButtonUnorderedlist.html">ButtonUnorderedlist</a></li>
                                     <li><a href="../classes/CKEDITOR.Link.html">CKEDITOR.Link</a></li>
+                                    <li><a href="../classes/CKEDITOR.plugins.html">CKEDITOR.plugins</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_autolink.html">CKEDITOR.plugins.ae_autolink</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_buttonbridge.html">CKEDITOR.plugins.ae_buttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_menubridge.html">CKEDITOR.plugins.ae_menubridge</a></li>
@@ -123,13 +126,13 @@
                                     <li><a href="../classes/CKEDITOR.plugins.ae_panelmenubuttonbridge.html">CKEDITOR.plugins.ae_panelmenubuttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_placeholder.html">CKEDITOR.plugins.ae_placeholder</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_richcombobridge.html">CKEDITOR.plugins.ae_richcombobridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_selectionregion.html">CKEDITOR.plugins.ae_selectionregion</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_uibridge.html">CKEDITOR.plugins.ae_uibridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_uicore.html">CKEDITOR.plugins.ae_uicore</a></li>
                                     <li><a href="../classes/CKEDITOR.Table.html">CKEDITOR.Table</a></li>
                                     <li><a href="../classes/CKEDITOR.tools.html">CKEDITOR.tools</a></li>
                                     <li><a href="../classes/Core.html">Core</a></li>
                                     <li><a href="../classes/Lang.html">Lang</a></li>
+                                    <li><a href="../classes/OOP.html">OOP</a></li>
+                                    <li><a href="../classes/SelectionRegion.html">SelectionRegion</a></li>
                                     <li><a href="../classes/ToolbarAdd.html">ToolbarAdd</a></li>
                                     <li><a href="../classes/ToolbarButtons.html">ToolbarButtons</a></li>
                                     <li><a href="../classes/ToolbarStyles.html">ToolbarStyles</a></li>
@@ -201,6 +204,13 @@
                                 var centerToolbar = function(toolbar, rect) {
                                     var toolbarNode = ReactDOM.findDOMNode(toolbar);
                             
+                                    var nativeEditor = toolbar.props.editor.get(&#x27;nativeEditor&#x27;);
+                                    var uiNode = nativeEditor.config.uiNode || document.body;
+                                    var uiNodeStyle = getComputedStyle(uiNode);
+                                    var uiNodeMarginLeft = parseInt(uiNodeStyle.getPropertyValue(&#x27;margin-left&#x27;), 10);
+                                    var uiNodeMarginRight = parseInt(uiNodeStyle.getPropertyValue(&#x27;margin-right&#x27;), 10);
+                                    var totalWidth = uiNodeMarginLeft + uiNode.clientWidth + uiNodeMarginRight;
+                            
                                     var halfNodeWidth = toolbarNode.offsetWidth / 2;
                                     var scrollPosition = new CKEDITOR.dom.window(window).getScrollPosition();
                             
@@ -208,13 +218,19 @@
                             
                                     var widgetXY = toolbar.getWidgetXYPoint(rect.left + rect.width / 2 - scrollPosition.x, rect.top + scrollPosition.y, CKEDITOR.SELECTION_BOTTOM_TO_TOP);
                             
-                                    toolbar.moveToPoint([
-                                        widgetXY[0],
-                                        widgetXY[1]
-                                    ], [
-                                        rect.left + rect.width / 2 - halfNodeWidth - scrollPosition.x,
-                                        rect.top - toolbarNode.offsetHeight + scrollPosition.y - gutter.top
-                                    ]);
+                                    var endPosition = [
+                                      rect.left + rect.width / 2 - halfNodeWidth - scrollPosition.x,
+                                      rect.top - toolbarNode.offsetHeight + scrollPosition.y - gutter.top
+                                    ];
+                            
+                                    if (endPosition[0] &lt; 0) {
+                                        endPosition[0] = 0;
+                                    }
+                                    else if (endPosition[0] &gt; totalWidth - toolbarNode.offsetWidth) {
+                                        endPosition[0] = totalWidth - toolbarNode.offsetWidth;
+                                    }
+                            
+                                    toolbar.moveToPoint(widgetXY, endPosition);
                                 };
                             
                                 /**
@@ -226,9 +242,14 @@
                                  * @return {Boolean} True, in all cases
                                  */
                                 var imageSelectionSetPosition = function(payload) {
-                                    centerToolbar(this, payload.selectionData.element.getClientRect());
+                                    var selectionData = payload.selectionData ? payload.selectionData : payload.editorEvent ?
+                                        payload.editorEvent.data.selectionData : null;
                             
-                                    return true;
+                                    if (selectionData &amp;&amp; selectionData.element) {
+                                        centerToolbar(this, selectionData.element.getClientRect());
+                            
+                                        return true;
+                                    }
                                 };
                             
                                 /**
@@ -241,10 +262,15 @@
                                  */
                                 var tableSelectionSetPosition = function(payload) {
                                     var nativeEditor = payload.editor.get(&#x27;nativeEditor&#x27;);
+                                    var uiNode = nativeEditor.config.uiNode;
+                            
+                                    var scrollTop = uiNode ? uiNode.scrollTop : 0;
                             
                                     var table = new CKEDITOR.Table(nativeEditor).getFromSelection();
+                                    var rect = table.getClientRect();
+                                    rect.top += scrollTop;
                             
-                                    centerToolbar(this, table.getClientRect());
+                                    centerToolbar(this, rect);
                             
                                     return true;
                                 };

@@ -8,13 +8,12 @@
      * - Normal: Just a button that allows to switch to the edition mode
      * - Exclusive: The ButtonLinkEdit UI with all the link edition controls.
      *
+     * @class ButtonLink
+     * @uses ButtonCfgProps
      * @uses ButtonKeystroke
      * @uses ButtonStateClasses
-     * @uses ButtonCfgProps
-     *
-     * @class ButtonLink
      */
-    var ButtonLink = React.createClass({
+    var ButtonLink = createReactClass({
         mixins: [AlloyEditor.ButtonKeystroke, AlloyEditor.ButtonStateClasses, AlloyEditor.ButtonCfgProps],
 
         // Allows validating props being passed to the component.
@@ -22,24 +21,30 @@
             /**
              * The editor instance where the component is being used.
              *
+             * @instance
+             * @memberof ButtonLink
              * @property {Object} editor
              */
-            editor: React.PropTypes.object.isRequired,
+            editor: PropTypes.object.isRequired,
 
             /**
              * The label that should be used for accessibility purposes.
              *
+             * @instance
+             * @memberof ButtonLink
              * @property {String} label
              */
-            label: React.PropTypes.string,
+            label: PropTypes.string,
 
             /**
              * The tabIndex of the button in its toolbar current state. A value other than -1
              * means that the button has focus and is the active element.
              *
+             * @instance
+             * @memberof ButtonLink
              * @property {Number} tabIndex
              */
-            tabIndex: React.PropTypes.number
+            tabIndex: PropTypes.number
         },
 
         // Lifecycle. Provides static properties to the widget.
@@ -47,9 +52,10 @@
             /**
              * The name which will be used as an alias of the button in the configuration.
              *
-             * @static
-             * @property {String} key
              * @default link
+             * @memberof ButtonLink
+             * @property {String} key
+             * @static
              */
             key: 'link'
         },
@@ -57,6 +63,8 @@
         /**
          * Lifecycle. Returns the default values of the properties used in the widget.
          *
+         * @instance
+         * @memberof ButtonLink
          * @method getDefaultProps
          * @return {Object} The default properties.
          */
@@ -72,6 +80,8 @@
         /**
          * Checks if the current selection is contained within a link.
          *
+         * @instance
+         * @memberof ButtonLink
          * @method isActive
          * @return {Boolean} True if the selection is inside a link, false otherwise.
          */
@@ -82,6 +92,8 @@
         /**
          * Lifecycle. Renders the UI of the button.
          *
+         * @instance
+         * @memberof ButtonLink
          * @method render
          * @return {Object} The content which should be rendered.
          */
@@ -106,8 +118,10 @@
         /**
          * Requests the link button to be rendered in exclusive mode to allow the creation of a link.
          *
-         * @protected
+         * @instance
+         * @memberof ButtonLink
          * @method _requestExclusive
+         * @protected
          */
         _requestExclusive: function() {
             this.props.requestExclusive(ButtonLink.key);

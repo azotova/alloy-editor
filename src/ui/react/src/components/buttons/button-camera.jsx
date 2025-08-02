@@ -9,30 +9,36 @@
      *
      * @class ButtonCamera
      */
-    var ButtonCamera = React.createClass({
+    var ButtonCamera = createReactClass({
         // Allows validating props being passed to the component.
         propTypes: {
             /**
              * The editor instance where the component is being used.
              *
              * @property {Object} editor
+             * @instance
+             * @memberof ButtonCamera
              */
-            editor: React.PropTypes.object.isRequired,
+            editor: PropTypes.object.isRequired,
 
             /**
              * The label that should be used for accessibility purposes.
              *
              * @property {String} label
+             * @instance
+             * @memberof ButtonCamera
              */
-            label: React.PropTypes.string,
+            label: PropTypes.string,
 
             /**
              * The tabIndex of the button in its toolbar current state. A value other than -1
              * means that the button has focus and is the active element.
              *
              * @property {Number} tabIndex
+             * @instance
+             * @memberof ButtonCamera
              */
-            tabIndex: React.PropTypes.number
+            tabIndex: PropTypes.number
         },
 
         // Lifecycle. Provides static properties to the widget.
@@ -40,9 +46,10 @@
             /**
              * The name which will be used as an alias of the button in the configuration.
              *
-             * @static
-             * @property {String} key
              * @default camera
+             * @memberof ButtonCamera
+             * @property {String} key
+             * @static
              */
             key: 'camera'
         },
@@ -50,6 +57,8 @@
         /**
          * Lifecycle. Renders the UI of the button.
          *
+         * @instance
+         * @memberof ButtonCamera
          * @method render
          * @return {Object} The content which should be rendered.
          */

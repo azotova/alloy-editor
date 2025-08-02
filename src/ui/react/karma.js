@@ -78,6 +78,13 @@ var filesToLoad = [
         watched: false
     },
 
+    /* React Bridge */
+    {
+        pattern: path.join(alloyEditorDir, 'react-bridge.js'),
+        included: true,
+        watched: false
+    },
+
     /* Fixtures */
     'test/core/test/fixtures/**/*',
     'src/ui/react/test/fixtures/**/*'
@@ -119,7 +126,7 @@ var defaultConfig = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '../../..',
 
-    browsers: ['Chrome', 'Firefox', 'IE9 - Win7', 'IE10 - Win7', 'IE11 - Win7', 'MSEdge - Win10'],
+    browsers: ['Chrome'],
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -160,72 +167,6 @@ var defaultConfig = {
     autoWatch: false
 };
 
-var customConfig = defaultConfig;
-
-if (process.env.SAUCE_USERNAME && process.env.SAUCE_ACCESS_KEY) {
-    var customLaunchers = {
-        sl_chrome: {
-            base: 'SauceLabs',
-            browserName: 'chrome'
-        },
-        sl_firefox: {
-            base: 'SauceLabs',
-            browserName: 'firefox'
-        },
-        sl_ie_9: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            platform: 'Windows 7',
-            version: '9'
-        },
-        sl_ie_10: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            platform: 'Windows 7',
-            version: '10'
-        },
-        sl_ie_11: {
-            base: 'SauceLabs',
-            browserName: 'internet explorer',
-            platform: 'Windows 8.1',
-            version: '11'
-        },
-        sl_edge: {
-            base: 'SauceLabs',
-            browserName: 'edge',
-            platform: 'Windows 10',
-            version: '14'
-        }
-    };
-
-    var sauceConfig = {
-        browsers: Object.keys(customLaunchers),
-
-        browserDisconnectTimeout: 10000,
-        browserDisconnectTolerance: 2,
-        browserNoActivityTimeout: 240000,
-
-        captureTimeout: 240000,
-        customLaunchers: customLaunchers,
-
-        reporters: ['coverage', 'progress', 'saucelabs'],
-
-        sauceLabs: {
-            testName: 'AlloyEditor tests',
-            recordScreenshots: false,
-            startConnect: true,
-            connectOptions: {
-                port: 5757,
-                logfile: 'sauce_connect.log'
-            }
-        }
-    };
-
-    Object.keys(sauceConfig).forEach(function(key) {
-        customConfig[key] = sauceConfig[key];
-    });
-}
-
 module.exports = function(config) {
-    config.set(customConfig);
+    config.set(defaultConfig);
 };

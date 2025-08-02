@@ -7,30 +7,37 @@
      *
      * @class ButtonLinkTargetEdit
      */
-    var ButtonLinkTargetEdit = React.createClass({
+    var ButtonLinkTargetEdit = createReactClass({
         // Allows validating props being passed to the component.
         propTypes: {
             /**
              * List of the allowed items for the target attribute. Every allowed target is an object
              * with a `label` attribute that will be shown in the dropdown and a `value` attribute
              * that will get set as the link target attribute.
+             *
+             * @instance
+             * @memberof ButtonLinkTargetEdit
              * @property {Array<object>} allowedTargets
              */
-            allowedTargets: React.PropTypes.arrayOf(React.PropTypes.object),
+            allowedTargets: PropTypes.arrayOf(PropTypes.object),
 
             /**
              * The editor instance where the component is being used.
              *
+             * @instance
+             * @memberof ButtonLinkTargetEdit
              * @property {Object} editor
              */
-            editor: React.PropTypes.object.isRequired,
+            editor: PropTypes.object.isRequired,
 
             /**
              * Label of the current target value.
              *
+             * @instance
+             * @memberof ButtonLinkTargetEdit
              * @property {String} selectedTarget
              */
-            selectedTarget: React.PropTypes.string
+            selectedTarget: PropTypes.string
         },
 
         // Lifecycle. Provides static properties to the widget.
@@ -38,9 +45,10 @@
             /**
              * The name which will be used as an alias of the button in the configuration.
              *
-             * @static
-             * @property {String} key
              * @default linkTargetEdit
+             * @memberof ButtonLinkTargetEdit
+             * @property {String} key
+             * @static
              */
             key: 'linkTargetEdit'
         },
@@ -48,14 +56,16 @@
         /**
          * Lifecycle. Renders the UI of the button.
          *
+         * @instance
+         * @memberof ButtonLinkTargetEdit
          * @method render
          * @return {Object} The content which should be rendered.
          */
         render: function() {
             var buttonTargetsList;
 
-             var handleLinkTargetChange = this.props.handleLinkTargetChange;
-             var allowedLinkTargets = this.props.allowedTargets;
+            var handleLinkTargetChange = this.props.handleLinkTargetChange;
+            var allowedLinkTargets = this.props.allowedTargets;
 
             if (this.props.expanded) {
                 buttonTargetsList= <AlloyEditor.ButtonTargetList editor={this.props.editor} onDismiss={this.props.toggleDropdown} allowedLinkTargets={allowedLinkTargets} handleLinkTargetChange={handleLinkTargetChange} selectedTarget={this.props.selectedTarget}/>;
@@ -78,6 +88,8 @@
          * Lifecycle. Invoked before rendering when new props or state are being received.
          * This method is not called for the initial render or when forceUpdate is used.
          *
+         * @instance
+         * @memberof ButtonLinkTargetEdit
          * @method  shouldComponentUpdate
          * @return {Boolean} Returns false when the transition to the new props and state will not
          * require a component update.

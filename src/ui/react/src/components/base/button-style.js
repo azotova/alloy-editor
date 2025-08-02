@@ -17,17 +17,31 @@
              * retrieve the style object from `editor.config.coreStyles_bold`. Nested properties such as `style = 'myplugin.myConfig.myStyle'`
              * are also supported and will try to retrieve the style object from the editor configuration as well.
              *
+             * @instance
+             * @memberof ButtonStyle
              * @property {Object|String} style
              */
-            style: React.PropTypes.oneOfType([
-                React.PropTypes.object,
-                React.PropTypes.string
-            ])
+            style: PropTypes.oneOfType([
+                PropTypes.object,
+                PropTypes.string
+            ]),
+
+			/**
+			 * The style function the button should handle.
+             * If specified, style function has higher priority than style property.
+			 *
+			 * @instance
+			 * @memberof ButtonStyle
+			 * @property {function} styleFn
+			 */
+            styleFn: PropTypes.func
         },
 
         /**
          * Lifecycle. Invoked once, both on the client and server, immediately before the initial rendering occurs.
          *
+         * @instance
+         * @memberof ButtonStyle
          * @method componentWillMount
          */
         componentWillMount: function() {
@@ -55,6 +69,8 @@
         /**
          * Lifecycle. Invoked immediately before a component is unmounted from the DOM.
          *
+         * @instance
+         * @memberof ButtonStyle
          * @method componentWillUnmount
          */
         componentWillUnmount: function() {
@@ -64,6 +80,8 @@
         /**
          * Returns instance of CKEDITOR.style which represents the current button style.
          *
+         * @instance
+         * @memberof ButtonStyle
          * @method getStyle
          * @return {CKEDITOR.style} The current style representation.
          */
@@ -74,6 +92,8 @@
         /**
          * Checks if style is active in the current selection.
          *
+         * @instance
+         * @memberof ButtonStyle
          * @method isActive
          * @return {Boolean} True if style is active, false otherwise.
          */

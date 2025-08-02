@@ -30,14 +30,16 @@
     var linkSelectionTest = function(payload) {
         var nativeEditor = payload.editor.get('nativeEditor');
         var range = nativeEditor.getSelection().getRanges()[0];
-
-        var element;
+        var selectionData = payload.data.selectionData;
+        var element = new CKEDITOR.Link(nativeEditor).getFromSelection();
+        var isSelectionEmpty = nativeEditor.isSelectionEmpty();
+        var elementIsNotImage = selectionData.element ? selectionData.element.getName() !== 'img' : true;
 
         return !!(
-            nativeEditor.isSelectionEmpty() &&
-            (element = (new CKEDITOR.Link(nativeEditor)).getFromSelection()) &&
-            element.getText().length !== range.endOffset &&
-            !element.isReadOnly() &&
+            isSelectionEmpty &&
+            elementIsNotImage &&
+            element && element.getText().length !== range.endOffset &&
+            element && !element.isReadOnly() &&
             !_isRangeAtElementEnd(range, element)
         );
     };
@@ -45,10 +47,26 @@
     var imageSelectionTest = function(payload) {
         var selectionData = payload.data.selectionData;
 
+        var selectionEmpty = false;
+
+        if (payload.editor) {
+            var nativeEditor = payload.editor._getNativeEditor();
+
+            selectionEmpty = nativeEditor.isSelectionEmpty();
+        }
+
+        var isImageWidget = function(element) {
+            return element.getAttribute('data-widget') === 'image' ||
+                element.getAscendant(
+                    el => el.getAttribute('data-widget') === 'image'
+                );
+        };
+
         return !!(
             selectionData.element &&
             selectionData.element.getName() === 'img' &&
-            !selectionData.element.isReadOnly()
+            !selectionEmpty &&
+            (!selectionData.element.isReadOnly() || isImageWidget(selectionData.element))
         );
     };
 

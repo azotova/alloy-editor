@@ -4,12 +4,11 @@
     /**
      * The ButtonHline class provides inserts horizontal line.
      *
+     * @class ButtonHline
      * @uses ButtonCommand
      * @uses ButtonStyle
-     *
-     * @class ButtonHline
      */
-    var ButtonHline = React.createClass({
+    var ButtonHline = createReactClass({
         mixins: [AlloyEditor.ButtonStyle, AlloyEditor.ButtonCommand],
 
         // Allows validating props being passed to the component.
@@ -17,24 +16,30 @@
             /**
              * The editor instance where the component is being used.
              *
+             * @instance
+             * @memberof ButtonHline
              * @property {Object} editor
              */
-            editor: React.PropTypes.object.isRequired,
+            editor: PropTypes.object.isRequired,
 
             /**
              * The label that should be used for accessibility purposes.
              *
+             * @instance
+             * @memberof ButtonHline
              * @property {String} label
              */
-            label: React.PropTypes.string,
+            label: PropTypes.string,
 
             /**
              * The tabIndex of the button in its toolbar current state. A value other than -1
              * means that the button has focus and is the active element.
              *
+             * @instance
+             * @memberof ButtonHline
              * @property {Number} tabIndex
              */
-            tabIndex: React.PropTypes.number
+            tabIndex: PropTypes.number
         },
 
         // Lifecycle. Provides static properties to the widget.
@@ -42,9 +47,10 @@
             /**
              * The name which will be used as an alias of the button in the configuration.
              *
-             * @static
-             * @property {String} key
              * @default hline
+             * @memberof ButtonHline
+             * @property {String} key
+             * @static
              */
             key: 'hline'
         },
@@ -52,6 +58,8 @@
         /**
          * Lifecycle. Returns the default values of the properties used in the widget.
          *
+         * @instance
+         * @memberof ButtonHline
          * @method getDefaultProps
          * @return {Object} The default properties.
          */
@@ -67,6 +75,8 @@
         /**
          * Lifecycle. Renders the UI of the button.
          *
+         * @instance
+         * @memberof ButtonHline
          * @method render
          * @return {Object} The content which should be rendered.
          */

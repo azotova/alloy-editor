@@ -9,9 +9,38 @@
      */
     var ToolbarButtons = {
         /**
+         * Analayses the current selection and returns the buttons or button groups to be rendered.
+         *
+         * @instance
+         * @method getToolbarButtonGroups
+         * @param {Array} buttons The buttons could be shown, prior to the state filtering.
+         * @param {Object} additionalProps Additional props that should be passed down to the buttons.
+         * @return {Array} An Array which contains the buttons or button groups that should be rendered.
+         */
+        getToolbarButtonGroups: function(buttons, additionalProps) {
+            var instance = this;
+
+            if (AlloyEditor.Lang.isFunction(buttons)) {
+                buttons = buttons.call(this) || [];
+            }
+
+
+            return buttons.reduce(function(list, button) {
+                if (Array.isArray(button)) {
+                    list.push(instance.getToolbarButtons(button, additionalProps));
+                    return list;
+                } else {
+                    return instance.getToolbarButtons(buttons, additionalProps);
+                }
+            }, []);
+        },
+
+        /**
          * Analyzes the current selection and the buttons exclusive mode value to figure out which
          * buttons should be present in a given state.
          *
+         * @instance
+         * @memberof ToolbarButtons
          * @method getToolbarButtons
          * @param {Array} buttons The buttons could be shown, prior to the state filtering.
          * @param {Object} additionalProps Additional props that should be passed down to the buttons.
@@ -22,6 +51,10 @@
 
             var nativeEditor = this.props.editor.get('nativeEditor');
             var buttonCfg = nativeEditor.config.buttonCfg || {};
+
+            if (AlloyEditor.Lang.isFunction(buttons)) {
+                buttons = buttons.call(this) || [];
+            }
 
             var toolbarButtons = this.filterExclusive(
                     buttons.filter(function(button) {
@@ -39,10 +72,10 @@
                         return button;
                     })
                 )
-                .map(function(button) {
+                .map(function(button, index) {
                     var props = this.mergeExclusiveProps({
                         editor: this.props.editor,
-                        key: button.key,
+                        key: button.key !== 'separator' ? button.key : `${button.key}-${index}`,
                         tabKey: button.key,
                         tabIndex: (this.props.trigger && this.props.trigger.props.tabKey === button.key) ? 0 : -1,
                         trigger: this.props.trigger

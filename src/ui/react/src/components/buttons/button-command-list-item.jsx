@@ -5,27 +5,30 @@
      * The ButtonCommandListItem class is a UI class that renders a ButtonCommand that can be used inside
      * a list as an item, with a string representation of its behaviour.
      *
-     * @uses ButtonCommand
-     *
      * @class ButtonCommandListItem
+     * @uses ButtonCommand
      */
-    var ButtonCommandListItem = React.createClass({
+    var ButtonCommandListItem = createReactClass({
         mixins: [AlloyEditor.ButtonCommand],
 
         propTypes: {
             /**
              * The command label or description to render in the list entry.
              *
+             * @instance
+             * @memberof ButtonCommandListItem
              * @property {String} description
              */
-            description: React.PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
 
             /**
              * The command icon to render in the list entry.
              *
+             * @instance
+             * @memberof ButtonCommandListItem
              * @property {String} icon
              */
-            icon: React.PropTypes.string
+            icon: PropTypes.string
         },
 
         // Lifecycle. Provides static properties to the widget.
@@ -33,9 +36,10 @@
             /**
              * The name which will be used as an alias of the button in the configuration.
              *
-             * @static
-             * @property {String} key
              * @default buttonCommandListItem
+             * @memberof ButtonCommandListItem
+             * @property {String} key
+             * @static
              */
             key: 'buttonCommandListItem'
         },
@@ -43,27 +47,33 @@
         /**
          * Lifecycle. Renders the UI of the button.
          *
+         * @instance
+         * @memberof ButtonCommandListItem
          * @method render
          * @return {Object} The content which should be rendered.
          */
         render: function() {
+            var iconClassName = `ae-icon-${this.props.icon}`;
+
             return (
-                <button aria-label={this.props.description} className={this._getClassName()} onClick={this.execCommand} tabIndex={this.props.tabIndex}>{this.props.description}</button>
+                <button aria-label={this.props.description} className={this._getClassName()} onClick={this.execCommand} tabIndex={this.props.tabIndex}>
+                    {this.props.icon && (<span className={iconClassName}></span>)}
+                    {this.props.description}
+                </button>
             );
         },
 
         /**
          * Returns the class name of Widget.
          *
+         * @instance
+         * @memberof ButtonCommandListItem
          * @method _getClassName
+         * @protected
          * @return {String} The class name of the Widget.
          */
         _getClassName: function() {
-            var className = 'ae-toolbar-element';
-
-            if (this.props.icon) {
-                className += ' ae-icon-' + this.props.icon;
-            }
+            var className = 'ae-container ae-toolbar-element';
 
             return className;
         }

@@ -31,7 +31,7 @@
                 <li class="divider-vertical"></li>
                 <li>
                     <p class="navbar-text">
-                        API Docs for Version: <b>1.3.0</b>
+                        API Docs for Version: <b>1.5.19</b>
                     </p>
                 </li>
             </div>
@@ -56,6 +56,7 @@
                     
                             <div id="api-tabview-panel">
                                 <ul id="api-classes" class="apis classes tab-pane">
+                                    <li><a href="../classes/ae_uicore.html">ae_uicore</a></li>
                                     <li><a href="../classes/AlloyEditor.html">AlloyEditor</a></li>
                                     <li><a href="../classes/Attribute.html">Attribute</a></li>
                                     <li><a href="../classes/Base.html">Base</a></li>
@@ -88,6 +89,7 @@
                                     <li><a href="../classes/ButtonLinkTargetEdit.html">ButtonLinkTargetEdit</a></li>
                                     <li><a href="../classes/ButtonOrderedList.html">ButtonOrderedList</a></li>
                                     <li><a href="../classes/ButtonOutdentBlock.html">ButtonOutdentBlock</a></li>
+                                    <li><a href="../classes/ButtonParagraphAlign.html">ButtonParagraphAlign</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignLeft.html">ButtonParagraphAlignLeft</a></li>
                                     <li><a href="../classes/ButtonParagraphAlignRight.html">ButtonParagraphAlignRight</a></li>
                                     <li><a href="../classes/ButtonParagraphCenter.html">ButtonParagraphCenter</a></li>
@@ -116,6 +118,7 @@
                                     <li><a href="../classes/ButtonUnderline.html">ButtonUnderline</a></li>
                                     <li><a href="../classes/ButtonUnorderedlist.html">ButtonUnorderedlist</a></li>
                                     <li><a href="../classes/CKEDITOR.Link.html">CKEDITOR.Link</a></li>
+                                    <li><a href="../classes/CKEDITOR.plugins.html">CKEDITOR.plugins</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_autolink.html">CKEDITOR.plugins.ae_autolink</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_buttonbridge.html">CKEDITOR.plugins.ae_buttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_menubridge.html">CKEDITOR.plugins.ae_menubridge</a></li>
@@ -123,13 +126,13 @@
                                     <li><a href="../classes/CKEDITOR.plugins.ae_panelmenubuttonbridge.html">CKEDITOR.plugins.ae_panelmenubuttonbridge</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_placeholder.html">CKEDITOR.plugins.ae_placeholder</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_richcombobridge.html">CKEDITOR.plugins.ae_richcombobridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_selectionregion.html">CKEDITOR.plugins.ae_selectionregion</a></li>
                                     <li><a href="../classes/CKEDITOR.plugins.ae_uibridge.html">CKEDITOR.plugins.ae_uibridge</a></li>
-                                    <li><a href="../classes/CKEDITOR.plugins.ae_uicore.html">CKEDITOR.plugins.ae_uicore</a></li>
                                     <li><a href="../classes/CKEDITOR.Table.html">CKEDITOR.Table</a></li>
                                     <li><a href="../classes/CKEDITOR.tools.html">CKEDITOR.tools</a></li>
                                     <li><a href="../classes/Core.html">Core</a></li>
                                     <li><a href="../classes/Lang.html">Lang</a></li>
+                                    <li><a href="../classes/OOP.html">OOP</a></li>
+                                    <li><a href="../classes/SelectionRegion.html">SelectionRegion</a></li>
                                     <li><a href="../classes/ToolbarAdd.html">ToolbarAdd</a></li>
                                     <li><a href="../classes/ToolbarButtons.html">ToolbarButtons</a></li>
                                     <li><a href="../classes/ToolbarStyles.html">ToolbarStyles</a></li>
@@ -201,6 +204,8 @@
                                      * Initializer lifecycle implementation for the AlloyEditor class. Creates a CKEditor
                                      * instance, passing it the provided configuration attributes.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method initializer
                                      * @param config {Object} Configuration object literal for the editor.
@@ -227,12 +232,14 @@
                             
                                         editor.config.selectionKeystrokes = this.get(&#x27;selectionKeystrokes&#x27;);
                             
-                                        if (CKEDITOR.env.ie) {
-                                            editor.config.extraPlugins = editor.config.extraPlugins.replace(&#x27;ae_dragresize&#x27;, &#x27;ae_dragresize_ie&#x27;);
-                                            editor.config.removePlugins = editor.config.removePlugins.replace(&#x27;ae_dragresize&#x27;, &#x27;ae_dragresize_ie&#x27;);
-                                        }
-                            
                                         AlloyEditor.Lang.mix(editor.config, config);
+                            
+                                        if (CKEDITOR.env.ie &amp;&amp; !CKEDITOR.env.edge) {
+                                            var plugin = (CKEDITOR.env.version === 11) ? &#x27;ae_dragresize_ie11&#x27; : &#x27;ae_dragresize_ie&#x27;;
+                            
+                                            editor.config.extraPlugins = editor.config.extraPlugins.replace(&#x27;ae_dragresize&#x27;, plugin);
+                                            editor.config.removePlugins = editor.config.removePlugins.replace(&#x27;ae_dragresize&#x27;, plugin);
+                                        }
                             
                                         editor.once(&#x27;contentDom&#x27;, function() {
                             
@@ -244,15 +251,17 @@
                             
                                         }.bind(this));
                             
-                                        AlloyEditor.loadLanguageResources(this._renderUI.bind(this));
-                            
                                         this._editor = editor;
+                            
+                                        AlloyEditor.loadLanguageResources(this._renderUI.bind(this));
                                     },
                             
                                     /**
                                      * Destructor lifecycle implementation for the AlloyEdtor class. Destroys the CKEditor
                                      * instance and destroys all created toolbars.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method destructor
                                      */
@@ -287,6 +296,8 @@
                                     /**
                                      * Clear selections from window object
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _clearSelections
                                      */
@@ -304,6 +315,8 @@
                                     /**
                                      * Method to set default link behavior
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _addReadOnlyLinkClickListener
                                      * @param {Object} editor
@@ -318,6 +331,8 @@
                                      * Called on &#x60;click&#x60; event when the editor is in read only mode. Navigates to link&#x27;s URL or opens
                                      * the link in a new window.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @event readOnlyClick
                                      * @protected
                                      * @method _defaultReadOnlyClickFn
@@ -349,6 +364,8 @@
                                     /**
                                      * Retrieves the native CKEditor instance. Having this, the developer may use the API of CKEditor OOTB.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _getNativeEditor
                                      * @return {Object} The current instance of CKEditor.
@@ -360,6 +377,8 @@
                                     /**
                                      * Redirects the browser to a given link
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _redirectLink
                                      * @param {string} href The href to take the browser to
@@ -377,6 +396,8 @@
                                     /**
                                      * Renders the specified from the user toolbars.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _renderUI
                                      */
@@ -406,6 +427,8 @@
                                      * the Id of the element which have to be retrieved from the DOM.
                                      * If an HTML Element is passed, the element itself will be returned.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @method _toElement
                                      * @protected
                                      * @param {!(String|HTMLElement)} value String, which have to correspond to an HTML element from the DOM,
@@ -425,6 +448,8 @@
                                      * [here](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-allowedContent) for more information about the
                                      * supported values.
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _validateAllowedContent
                                      * @param {Any} The value to be checked
@@ -437,6 +462,8 @@
                                     /**
                                      * Validates the value of toolbars attribute
                                      *
+                                     * @memberof Core
+                                     * @instance
                                      * @protected
                                      * @method _validateToolbars
                                      * @param {Any} The value to be checked
@@ -452,6 +479,8 @@
                                          * Look on the [official CKEditor API](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-allowedContent)
                                          * for more information about the valid values.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property allowedContent
                                          * @default true
                                          * @writeOnce
@@ -467,6 +496,8 @@
                                          * Specifies whether AlloyEditor set the contenteditable attribute
                                          * to &quot;true&quot; on its srcNode.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property enableContentEditable
                                          * @type Boolean
                                          * @default true
@@ -481,6 +512,8 @@
                                         /**
                                          * The delay (timeout), in ms, after which events such like key or mouse events will be processed.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property eventsDelay
                                          * @type {Number}
                                          */
@@ -493,6 +526,8 @@
                                          * Specifies the extra plugins which have to be loaded to the current CKEditor instance in order to
                                          * make AlloyEditor to work properly.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property extraPlugins
                                          * @default &#x27;uicore,selectionregion,dragresize,addimages,placeholder,tabletools,tableresize,autolink&#x27;
                                          * @writeOnce
@@ -500,13 +535,31 @@
                                          */
                                         extraPlugins: {
                                             validator: AlloyEditor.Lang.isString,
-                                            value: &#x27;ae_uicore,ae_selectionregion,ae_selectionkeystrokes,ae_imagealignment,ae_addimages,ae_placeholder,ae_tabletools,ae_tableresize,ae_autolink,ae_embed,ae_autolist,ae_dragresize&#x27;,
+                                            value: &#x27;ae_uicore,ae_selectionregion,ae_selectionkeystrokes,ae_imagealignment,ae_addimages,ae_placeholder,&#x27; +
+                                                &#x27;ae_tabletools,ae_tableresize,ae_autolink,ae_embed,ae_autolist,ae_dragresize,&#x27; +
+                                                &#x27;ae_uibridge,ae_richcombobridge,ae_panelmenubuttonbridge,ae_menubridge,ae_menubuttonbridge,ae_buttonbridge,font,colorbutton&#x27;,
                                             writeOnce: true
+                                        },
+                            
+                                        /**
+                                         * Specifies the &quot;mode&quot; for alloy editor
+                                         * @memberof Core
+                                         * @instance
+                                         * @property mode
+                                         * @default &#x27;simple&#x27;
+                                         * @writeOnce
+                                         * @type {String}
+                                         */
+                                        mode: {
+                                            validator: AlloyEditor.Lang.isString,
+                                            value: &#x27;simple&#x27;
                                         },
                             
                                         /**
                                          * Retrieves the native CKEditor instance. Having this, the developer may use the full API of CKEditor.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property nativeEditor
                                          * @readOnly
                                          * @type {Object}
@@ -521,6 +574,8 @@
                                          * {{#crossLink &quot;CKEDITOR.plugins.ae_placeholder}}{{/crossLink}}
                                          * when editor is not focused.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property placeholderClass
                                          * @default &#x27;ae-placeholder&#x27;
                                          * @writeOnce
@@ -543,6 +598,8 @@
                                          * UI - those of AlloyEditor. You will be fully able to use both OOTB CKEditor and AlloyEditor on the same
                                          * page!
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property removePlugins
                                          * @default &#x27;contextmenu,toolbar,elementspath,resize,liststyle,link&#x27;
                                          * @writeOnce
@@ -560,6 +617,8 @@
                                          * definition](http://docs.ckeditor.com/#!/api/CKEDITOR.config-cfg-keystrokes) and a selection property with
                                          * the selection name to trigger.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property selectionKeystrokes
                                          * @type {Array}
                                          */
@@ -577,6 +636,8 @@
                                         /**
                                          * The Node ID or HTMl node, which AlloyEditor should use as an editable area.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property srcNode
                                          * @type String | Node
                                          * @writeOnce
@@ -589,6 +650,8 @@
                                         /**
                                          * The toolbars configuration for this editor instance
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property {Object} toolbars
                                          */
                                         toolbars: {
@@ -608,6 +671,8 @@
                                         /**
                                          * The Node ID or HTMl node, where AlloyEditor&#x27;s UI should be rendered.
                                          *
+                                         * @memberof Core
+                                         * @instance
                                          * @property uiNode
                                          * @type String | Node
                                          * @writeOnce

@@ -2,7 +2,7 @@
     'use strict';
 
     /* istanbul ignore if */
-    if(CKEDITOR.plugins.get('ae_panelmenubuttonbridge')) {
+    if (CKEDITOR.plugins.get('ae_panelmenubuttonbridge')) {
         return;
     }
 
@@ -34,12 +34,12 @@
         PANEL_MENU_DEFS[editor.name][panelMenuButtonName] = PANEL_MENU_DEFS[editor.name][panelMenuButtonName] || panelMenuButtonDefinition;
 
         if (!PanelMenuButtonBridge) {
-            PanelMenuButtonBridge = React.createClass(
+            PanelMenuButtonBridge = createReactClass(
                 CKEDITOR.tools.merge(UNSUPPORTED_PANEL_MENU_BUTTON_API, {
                     displayName: panelMenuButtonName,
 
                     propTypes: {
-                        editor: React.PropTypes.object.isRequired
+                        editor: PropTypes.object.isRequired
                     },
 
                     statics: {
@@ -124,10 +124,17 @@
     };
 
     /* istanbul ignore else */
-    if (!CKEDITOR.plugins.get('panelmenubutton')) {
+    if (!CKEDITOR.plugins.get('panelmenubutton')) {
         CKEDITOR.UI_PANELBUTTON = 'panelmenubutton';
 
         CKEDITOR.plugins.add('panelmenubutton', {});
+    }
+
+    /* istanbul ignore else */
+    if (!CKEDITOR.plugins.get('panelbutton')) {
+        CKEDITOR.UI_PANELBUTTON = 'panelbutton';
+
+        CKEDITOR.plugins.add('panelbutton', {});
     }
 
     /**
@@ -150,7 +157,7 @@
          * @method init
          * @param {Object} editor The CKEditor instance being initialized
          */
-        init: function(editor) {
+        beforeInit: function(editor) {
             editor.ui.addPanelMenuButton = function(panelMenuButtonName, panelMenuButtonDefinition) {
                 this.add(panelMenuButtonName, CKEDITOR.UI_PANELBUTTON, panelMenuButtonDefinition);
             };

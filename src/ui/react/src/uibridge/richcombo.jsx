@@ -2,7 +2,7 @@
     'use strict';
 
     /* istanbul ignore if */
-    if(CKEDITOR.plugins.get('ae_richcombobridge')) {
+    if (CKEDITOR.plugins.get('ae_richcombobridge')) {
         return;
     }
 
@@ -44,17 +44,17 @@
     var generateRichComboBridge = function(richComboName, richComboDefinition, editor) {
         var RichComboBridge = AlloyEditor.Buttons[richComboName];
 
-        RICH_COMBO_DEFS[editor.name] =  RICH_COMBO_DEFS[editor.name] || {};
-        RICH_COMBO_DEFS[editor.name][richComboName] = RICH_COMBO_DEFS[editor.name][richComboName] || richComboDefinition;
+        RICH_COMBO_DEFS[editor.name] = RICH_COMBO_DEFS[editor.name] || {};
+        RICH_COMBO_DEFS[editor.name][richComboName] = RICH_COMBO_DEFS[editor.name][richComboName] || richComboDefinition;
         RICH_COMBO_DEFS[editor.name][richComboName].currentValue = undefined;
 
         if (!RichComboBridge) {
-            RichComboBridge = React.createClass(
+            RichComboBridge = createReactClass(
                 CKEDITOR.tools.merge(UNSUPPORTED_RICHCOMBO_API, {
                     displayName: richComboName,
 
                     propTypes: {
-                        editor: React.PropTypes.object.isRequired
+                        editor: PropTypes.object.isRequired
                     },
 
                     statics: {
@@ -217,9 +217,9 @@
          * @method init
          * @param {Object} editor The CKEditor instance being initialized
          */
-        init: function(editor) {
+        beforeInit: function(editor) {
             editor.ui.addRichCombo = function(richComboName, richComboDefinition) {
-               this.add(richComboName, CKEDITOR.UI_RICHCOMBO, richComboDefinition);
+                this.add(richComboName, CKEDITOR.UI_RICHCOMBO, richComboDefinition);
             };
 
             editor.ui.addHandler(CKEDITOR.UI_RICHCOMBO, {
