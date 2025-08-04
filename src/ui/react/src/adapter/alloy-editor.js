@@ -471,7 +471,14 @@
                 validator: '_validateToolbars',
                 value: {
                     add: {
-                        buttons: ['image', 'embed', 'camera', 'hline', 'table'],
+                        buttons: {
+                          original: ['image', 'embed', 'camera', 'hline', 'table'], // original Alloyeditor configuration
+                          section: ['Mathed', 'Chart', 'Quiz', 'image', 'hline', 'table', 'Def', 'Example', 'Theorem', 'Nb'], // 'Ref' для русского - скрепка
+                          condition: ['Mathed', 'Question', 'Choice', 'Construct', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
+                          solution: ['Mathed', 'Chart', 'image', 'table'], // 'Ref' для русского - скрепка
+                          complexObject: ['Mathed', 'Paragraph'], // for table, construct, chart, formula
+                          defaultOption: ['Mathed', 'image', 'embed', 'camera', 'hline', 'table']
+                        },
                         tabIndex: 2
                     },
                     styles: {
