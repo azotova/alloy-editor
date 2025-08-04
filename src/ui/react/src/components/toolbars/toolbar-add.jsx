@@ -15,6 +15,55 @@
      * @uses WidgetFocusManager
      * @uses WidgetPosition
      */
+
+    var analyzePath = function(target) {
+        //target - это html элемент
+        if (!target) {
+            return 'section'
+        }
+        var $target=$(target);
+        if ($target.closest('.chart-source') && $target.closest('.chart-source').length) {
+            return 'object';
+        }
+        if ($target.closest('table') && $target.closest('table').length) {
+            return 'object';
+        }
+        if ($target.closest('formula') && $target.closest('formula').length) {
+            return 'object';
+        }
+        if ($target.closest('chart') && $target.closest('chart').length) {
+            return 'object';
+        }
+        if ($target.closest('construct') && $target.closest('construct').length) {
+            return 'object';
+        }
+        if ($target.closest('question') && $target.closest('question').length) {
+            return 'object';
+        }
+        if ($target.closest('choice') && $target.closest('choice').length) {
+            return 'object';
+        }
+        if ($target.closest('.am-section_condition') && $target.closest('.am-section_condition').length) {
+            return 'condition';
+        }
+        if ($target.closest('.am-section_solution') && $target.closest('.am-section_solution').length) {
+            return 'solution';
+        }
+
+        // var pathLength = path.length;
+        // for (var i = 0; i < pathLength; i++) {
+        //   var $pathSegm = $(path[i]);
+        //   if ($pathSegm.is('table,formula,chart,construct,question,choice,.chart-source')) {
+        //     return 'object';
+        //   } else if ($pathSegm.is('.am-section_condition')) {
+        //     return 'condition';
+        //   } else if ($pathSegm.is('.am-section_solution')) {
+        //     return 'solution';
+        //   }
+        // }
+        return 'section';
+    }
+
     var ToolbarAdd = createReactClass({
         mixins: [AlloyEditor.WidgetDropdown, AlloyEditor.WidgetExclusive, AlloyEditor.WidgetFocusManager, AlloyEditor.ToolbarButtons, AlloyEditor.WidgetPosition, AlloyEditor.WidgetArrowBox],
 
@@ -234,16 +283,34 @@
             var buttons;
 
             if (this.props.renderExclusive) {
-                buttons = this.getToolbarButtons(this.props.config.buttons);
-            } else {
-                if (this.props.selectionData && this.props.selectionData.region) {
-                    buttons = (
-                        <button aria-label={AlloyEditor.Strings.add} className="ae-button ae-button-add" onClick={this.props.requestExclusive.bind(this, ToolbarAdd.key)} title={AlloyEditor.Strings.add}>
-                            <span className="ae-icon-add"></span>
-                        </button>
-                    );
+
+                switch (analyzePath(this.props.editorEvent.data.nativeEvent.target)) {
+
+                    case "section":
+                        var buttonsOption = this.props.config.buttons.section;
+                        break;
+                    case "condition":
+                        var buttonsOption = this.props.config.buttons.condition;
+                        break;
+                    case "solution":
+                        var buttonsOption = this.props.config.buttons.solution;
+                        break;
+                    case "object":
+                        var buttonsOption = this.props.config.buttons.complexObject;
+                        break;
+                    default:
+                        var buttonsOption = this.props.config.buttons.defaultOption;
                 }
-            }
+                buttons = this.getToolbarButtons(buttonsOption);
+                } else {
+                    if (this.props.selectionData && this.props.selectionData.region) {
+                        buttons = (
+                            <button aria-label={AlloyEditor.Strings.add} className="ae-button ae-button-add" onClick={this.props.requestExclusive.bind(this, ToolbarAdd.key)} title={AlloyEditor.Strings.add}>
+                            <span className="ae-icon-add"></span>
+                            </button>
+                        );
+                    }
+                }
 
             return buttons;
         },
