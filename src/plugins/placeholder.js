@@ -61,6 +61,18 @@
              * @param {CKEDITOR.dom.event} editor event, fired from CKEditor
              */
             _checkEmptyData: function(event) {
+                var checkParagraphBeforeQuestion = function(node) {
+                    var $children = $(node.$.outerHTML).children()
+                    var firstChild = $children.first()
+                    var secondChild = $children.eq(1)
+                    if (firstChild && firstChild.is("p") && (firstChild.text().trim() === '') ) {
+                        if (secondChild && secondChild.is("div.cke_widget_wrapper") && secondChild.find('question').length) {
+                            return true
+                        }
+                    }
+                    return false
+                }
+
                 var editor = event.editor;
 
                 var editableNode = editor.editable();
@@ -71,7 +83,7 @@
                     return innerHtml === element;
                 });
 
-                if (isEmpty) {
+                if (isEmpty || (checkParagraphBeforeQuestion(editableNode))) {
                     editableNode.addClass(editor.config.placeholderClass);
                 } else {
                     editableNode.removeClass(editor.config.placeholderClass);
