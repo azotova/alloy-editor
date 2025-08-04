@@ -68,9 +68,23 @@
                         <span className="ae-icon-image"></span>
                     </button>
 
-                    <input accept="image/*" onChange={this._onInputChange} ref="fileInput" style={inputSyle} type="file"/>
+                    <input ref="fileInput" style={inputSyle} type="file" name="file" className ="cloudinary_fileupload"/>
                 </div>
             );
+        },
+
+        componentDidMount: function componentDidMount() {
+          var options = {
+            cloud_name: "dzqbybz7w",
+            formData: {
+              callback: "/lib/cloudinary/cloudinary_cors.html",
+              upload_preset: "tbgnlrmb"
+            }
+          }
+          var that = this;
+          $(ReactDOM.findDOMNode(this.refs.fileInput)).cloudinary_fileupload(options).bind('cloudinarydone', function(e, data) {
+            that._onFileUpload(data);
+          });
         },
 
         /**
@@ -138,6 +152,32 @@
             }.bind(this);
 
             reader.readAsDataURL(file);
+
+            inputEl.value = '';
+        },
+
+        _onFileUpload: function _onFileUpload(data) {
+            var inputEl = ReactDOM.findDOMNode(this.refs.fileInput);
+
+            // On IE11 the function might be called with an empty array of
+            // files. In such a case, no actions will be taken.
+            if (!inputEl.files.length) {
+                return;
+            }
+            // var file = inputEl.files[0];
+
+            var editor = this.props.editor.get('nativeEditor');
+
+            var el = CKEDITOR.dom.element.createFromHtml('<img class="editor-image" data-cke-survive="true" src="' + data.result.url + '">');
+            editor.insertElement(el);
+
+            editor.fire('actionPerformed', this);
+
+            var imageData = {
+                el: el,
+                file: data.result.url
+            };
+            editor.fire('imageAdd', imageData);
 
             inputEl.value = '';
         }
